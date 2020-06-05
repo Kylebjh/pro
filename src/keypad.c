@@ -18,7 +18,7 @@ int keypad_read(int * key_value) {
 	short key_temp;
 
 	for (col = 0; col < MAX_KEY_COL; col++) {
-		*keypad_out = /**/;
+		*keypad_out = /*dddd*/;
 		key_temp = *keypad_in;
 
 		for (row = 0; row < MAX_KEY_ROW; row++) {
