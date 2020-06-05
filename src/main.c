@@ -157,9 +157,6 @@ int main(int argc, char* argv[]){
 
 					if(life == 0){
 					clcd_write_string("loser");
-					sel.all = 1; //게임 끝나고 종료
-					break;
-
 
 					printf("Do you want to one More? Y ");
 					char re = 0x00;
@@ -183,4 +180,4 @@ int main(int argc, char* argv[]){
 	return 0;
 }
 				
-				12345
+		
