@@ -98,7 +98,9 @@ int main(int argc, char* argv[]){
 		//게임 시작 전
 		switch(sel.all){
 			case 0://초기상태면
-				led_blink_all(); //led 깜박
+
+				// led blink
+				led_blink_all();
 				dot_write(0); //dot 깜
 				usleep(100);
 				dot_clear(); //dot 빡
@@ -142,37 +144,55 @@ int main(int argc, char* argv[]){
 					scanf("%d", &val);
 
 					if(val == 1){//up
+
+						// led blink
+						led_blink_all();
+
 						if(answer > cur_num){//맞으면
 							score *= 2;
 
 							// clcd
 							clcd_ingame_win(cur_num, answer, best_score, score)
+							// led up
+							led_up_shift();
 
 						}else{//틀리면
 							life -= 1;
 
 							// clcd
 							clcd_ingame_lose(cur_num, answer, best_score, score)
-
+							// led down
+							led_down_shift();
 						}
 					}else if(val == 2){//down
+
+						// led blink
+						led_blink_all();
+
 						if(answer < cur_num){// win
 							score *= 2;
 
 							// clcd
 							clcd_ingame_win(cur_num, answer, best_score, score)
+							// led up
+							led_up_shift();
 
 						}else{//틀리면
 							life -= 1;
 
 							// clcd
 							clcd_ingame_lose(cur_num, answer, best_score, score)
+							// led down
+							led_down_shift();
 						}
 
 					
 					
 
 					if(life == 0){ // game over
+
+					// led blink
+					led_blink_all();
 
 					//clcd
 					clcd_gameover(best_score);
