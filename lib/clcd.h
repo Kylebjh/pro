@@ -27,10 +27,11 @@ void clcd_set_DDRAM(int address);
 void clcd_start(char str[]);
 
 //added code
-void clcd_startgame(int total_chips);
+void clcd_startgame(int total_chips, int temp_chips);
 void clcd_ingame_before_bet(int total_chips, int temp_chips);
-void clcd_ingame_after_bet(int yourcard, int hiscard, int total_chips, int temp_chips);
-void clcd_ingame_bet(int chips);
+void clcd_ingame_win(int yourcard, int hiscard, int total_chips, int temp_chips);
+void clcd_ingame_lose(int yourcard, int hiscard, int total_chips, int temp_chips);
+void clcd_ingame_stopkeep(int total_chips, int temp_chips);
 void clcd_invaild_input();
 
 

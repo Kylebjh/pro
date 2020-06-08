@@ -82,54 +82,25 @@ void clcd_write_string(char str[]) {
 }
 
 
-// clcd_startgame(int chips) : clcd code for start game
-// upper line : double up game
-// lower line : high : x (chips)
-void clcd_startgame(int total_chips) {
+// clcd_startgame(int total_chips, int temp_chips) : clcd code for start game
+// upper line : Double up game
+// lower line : tot: x temp:x
+void clcd_startgame(int total_chips, int temp_chips) {
 
     clcd_clear_display();
     int i;
 //////////////////////////"                "
-    char upper_string[] = "double up game";
-    char lower_string[] = "tot : ";
-    char total_chips_string[4];
-
-    sprintf(total_chips_string,"%d",total_chips);
-
-    // upper line setting
-    clcd_entry_mode_set(1, 0);
-    clcd_set_DDRAM(0x00);
-    // upper line writing
-    clcd_write_string(upper_string);
-
-    // lower line setting
-    clcd_entry_mode_set(1, 0);
-    clcd_set_DDRAM(0x40);
-    // lower line writing
-    clcd_write_string(lower_string);
-
-    // lower line chip writing
-    clcd_write_string(total_chips_string);
-
-}
-
-// clcd_ingame_before_bet(int yourcard, int hiscard, int chips) : clcd code before betting
-// upper line : up(1),down(2)(A)
-// lower line : tot : X temp : X
-void clcd_ingame_before_bet(int total_chips, int temp_chips) {
-
-    clcd_clear_display();
-    int i;
-//////////////////////////"                "
-    char upper_string[] = "up(1),down(2)(A)";
+    char upper_string[] = "Double up game";
     char total_chips_string[4];
     char temp_chips_string[4];
 
     sprintf(total_chips_string,"%d",total_chips);
+
     sprintf(temp_chips_string,"%d",temp_chips);
 
     // upper line setting
     clcd_entry_mode_set(1, 0);
+    clcd_set_DDRAM(0x00);
     // upper line writing
     clcd_write_string(upper_string);
 
@@ -144,10 +115,43 @@ void clcd_ingame_before_bet(int total_chips, int temp_chips) {
 
 }
 
-// clcd_ingame_after_bet(int yourcard, int hiscard, int chips) : clcd code after betting
-// upper line : your : xx his : xx
-// lower line : chips : x (chips)
-void clcd_ingame_after_bet(int yourcard, int hiscard, int total_chips, int temp_chips) {
+// clcd_ingame_before_bet(int yourcard, int hiscard, int chips) : clcd code before betting
+// upper line : up1, down 2 (A)
+// lower line : tot : X temp : X
+void clcd_ingame_before_bet(int total_chips, int temp_chips) {
+
+    clcd_clear_display();
+    int i;
+//////////////////////////"                "
+    char upper_string[] = "up1, down2 (A)";
+    char total_chips_string[4];
+    char temp_chips_string[4];
+
+    sprintf(total_chips_string,"%d",total_chips);
+    sprintf(temp_chips_string,"%d",temp_chips);
+
+    // upper line setting
+    clcd_entry_mode_set(1, 0);
+    clcd_set_DDRAM(0x00);
+    // upper line writing
+    clcd_write_string(upper_string);
+
+    // lower line setting
+    clcd_entry_mode_set(1, 0);
+    clcd_set_DDRAM(0x40);
+    // lower line writing
+    clcd_write_string("tot:");
+    clcd_write_string(total_chips_string);
+    clcd_write_string(" temp:");
+    clcd_write_string(temp_chips_string);
+
+}
+
+
+// clcd_ingame_win(int yourcard, int hiscard, int chips) : clcd code win
+// upper line : WIN! your : x his : x
+// lower line : tot: temp:
+void clcd_ingame_win(int yourcard, int hiscard, int total_chips, int temp_chips) {
 
     clcd_clear_display();
     int i;
@@ -157,8 +161,138 @@ void clcd_ingame_after_bet(int yourcard, int hiscard, int total_chips, int temp_
     char total_chips_string[4];
     char temp_chips_string[4];
 
+
+switch(yourcard) {
+	case 1 :
+	sprintf(ycard_string,"%s", "1");
+	break;
+	case 2 :
+	sprintf(ycard_string,"%s", "2");
+	break;
+	case 3 :
+	sprintf(ycard_string,"%s", "3");
+	break;
+	case 4 :
+	sprintf(ycard_string,"%s", "4");
+	break;
+	case 5 :
+	sprintf(ycard_string,"%s", "5");
+	break;
+	case 6 :
+	sprintf(ycard_string,"%s", "6");
+	break;
+	case 7 :
+	sprintf(ycard_string,"%s", "7");
+	break;
+	case 8 :
+	sprintf(ycard_string,"%s", "8");
+	break;
+	case 9 :
+	sprintf(ycard_string,"%s", "9");
+	break;
+	case 10 :
+	sprintf(ycard_string,"%s", "J");
+	break;
+	case 11 :
+	sprintf(ycard_string,"%s", "Q");
+	break;
+	case 12 :
+	sprintf(ycard_string,"%s", "K");
+	break;
+	case 13 :
+	sprintf(ycard_string,"%s", "A");
+	break;
+
+	default :
+	sprintf(ycard_string,"%s", "E");
+
+}
+
+switch(hiscard) {
+	case 1 :
+	sprintf(hcard_string,"%s", "1");
+	break;
+	case 2 :
+	sprintf(hcard_string,"%s", "2");
+	break;
+	case 3 :
+	sprintf(hcard_string,"%s", "3");
+	break;
+	case 4 :
+	sprintf(hcard_string,"%s", "4");
+	break;
+	case 5 :
+	sprintf(hcard_string,"%s", "5");
+	break;
+	case 6 :
+	sprintf(hcard_string,"%s", "6");
+	break;
+	case 7 :
+	sprintf(hcard_string,"%s", "7");
+	break;
+	case 8 :
+	sprintf(hcard_string,"%s", "8");
+	break;
+	case 9 :
+	sprintf(hcard_string,"%s", "9");
+	break;
+	case 10 :
+	sprintf(hcard_string,"%s", "J");
+	break;
+	case 11 :
+	sprintf(hcard_string,"%s", "Q");
+	break;
+	case 12 :
+	sprintf(hcard_string,"%s", "K");
+	break;
+	case 13 :
+	sprintf(hcard_string,"%s", "A");
+	break;
+
+	default :
+	sprintf(hcard_string,"%s", "E");
+
+}
+
+    // upper line setting
+    clcd_entry_mode_set(1, 0);
+
+    // upper line writing
+    clcd_write_string("WIN!");
+    clcd_set_DDRAM(0x00 + 4);
+    clcd_write_string(" you:");
+    clcd_set_DDRAM(0x00 + 4 + 5);
+    clcd_write_string(ycard_string);
+    clcd_set_DDRAM(0x00 + 4 + 5 + 1);
+    clcd_write_string(" his:");
+    clcd_set_DDRAM(0x00 + 4 + 5 + 1 + 5);
+    clcd_write_string(hcard_string);
+
     sprintf(total_chips_string,"%d",total_chips);
     sprintf(temp_chips_string,"%d",temp_chips);
+
+    // lower line setting
+    clcd_entry_mode_set(1, 0);
+    clcd_set_DDRAM(0x40);
+    // lower line writing
+    clcd_write_string("tot:");
+    clcd_write_string(total_chips_string);
+    clcd_write_string(" temp:");
+    clcd_write_string(temp_chips_string);
+}
+
+// clcd_ingame_lose(int yourcard, int hiscard, int chips) : clcd code lose
+// upper line : LOSE you : x his : x
+// lower line : tot: temp:
+void clcd_ingame_lose(int yourcard, int hiscard, int total_chips, int temp_chips) {
+
+    clcd_clear_display();
+    int i;
+//////////////////////////"                "
+    char ycard_string[1];
+    char hcard_string[1];
+    char total_chips_string[4];
+    char temp_chips_string[4];
 
 
 switch(yourcard) {
@@ -256,45 +390,48 @@ switch(hiscard) {
     // upper line setting
     clcd_entry_mode_set(1, 0);
     // upper line writing
-    clcd_write_string("your:");
-    clcd_set_DDRAM(0x00 + 5);
+    clcd_write_string("LOSE");
+    clcd_set_DDRAM(0x00 + 4);
+    clcd_write_string(" you:");
+    clcd_set_DDRAM(0x00 + 4 + 5);
     clcd_write_string(ycard_string);
-    clcd_set_DDRAM(0x00 + 6);
+    clcd_set_DDRAM(0x00 + 4 + 5 + 1);
     clcd_write_string(" his:");
-    clcd_set_DDRAM(0x00 + 11);
+    clcd_set_DDRAM(0x00 + 4 + 5 + 1 + 5);
     clcd_write_string(hcard_string);
+
+    sprintf(total_chips_string,"%d",total_chips);
+    sprintf(temp_chips_string,"%d",temp_chips);
 
     // lower line setting
     clcd_entry_mode_set(1, 0);
     clcd_set_DDRAM(0x40);
     // lower line writing
     clcd_write_string("tot:");
-    clcd_set_DDRAM(0x40 + 4);
     clcd_write_string(total_chips_string);
-    clcd_set_DDRAM(0x40 + 5);
     clcd_write_string(" temp:");
-    clcd_set_DDRAM(0x40 + 11);
     clcd_write_string(temp_chips_string);
-
 }
 
-// clcd_ingame_bet(int chips) : clcd code during betting
-// upper line : up(1) down(2)
-// lower line : chips :
-void clcd_ingame_bet(int chips) {
+// clcd_ingame_stopkeep(int total_chips, int temp_chips) : clcd code stop keep
+// upper line : stop1 keep2 (A)
+// lower line : tot : X temp : X
+void clcd_ingame_stopkeep(int total_chips, int temp_chips) {
 
     clcd_clear_display();
     int i;
 //////////////////////////"                "
-    char upper_string[] = "up(1),down(2)(A)";
-    char lower_string[] = "chips : ";
-    char chips_string[7];
+    char upper_string[] = "stop1 keep2 (A)";
+    char total_chips_string[4];
+    char temp_chips_string[4];
 
-    sprintf(chips_string,"%d",chips);
+    sprintf(total_chips_string,"%d",total_chips);
 
+    sprintf(temp_chips_string,"%d",temp_chips);
 
     // upper line setting
     clcd_entry_mode_set(1, 0);
+    clcd_set_DDRAM(0x00);
     // upper line writing
     clcd_write_string(upper_string);
 
@@ -302,13 +439,13 @@ void clcd_ingame_bet(int chips) {
     clcd_entry_mode_set(1, 0);
     clcd_set_DDRAM(0x40);
     // lower line writing
-    clcd_write_string(lower_string);
-
-    // lower line chip writing
-    clcd_set_DDRAM(0x40 + strlen( lower_string ) );
-    clcd_write_string(chips_string);
+    clcd_write_string("tot:");
+    clcd_write_string(total_chips_string);
+    clcd_write_string(" temp:");
+    clcd_write_string(temp_chips_string);
 
 }
+
 
 // clcd_invaild_input() : clcd code for invaild input
 // upper line : invaild input !!
