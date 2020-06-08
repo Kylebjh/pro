@@ -102,11 +102,12 @@ int main(int argc, char* argv[]){
 				dot_write(0); //dot 깜
 				usleep(100);
 				dot_clear(); //dot 빡
-				clcd_write_string("double up game")
-				clcd_write_string("high chipe : x")
 
 				score = 1;
 				life = 3;
+				
+				// clcd
+				clcd_clcd_startgame(best_score, score);
 
 				answer = gen_randNum();//난수 생성
 				sel.all = 2;
@@ -129,8 +130,9 @@ int main(int argc, char* argv[]){
 			case 3: //게임중
 				dot_write(answer);//답 출력
 				fnd_hexa_number(cur_num);//현재 선택 카드 출력
-				clcd_write_string("choose up(1) & down(2)");
-				clcd_write_string("chipe : x");
+
+				// clcd
+				clcd_ingame_before_bet(best_score, score)
 
 				int val = 0;
 				while(1)
@@ -142,21 +144,44 @@ int main(int argc, char* argv[]){
 					if(val == 1){//up
 						if(answer > cur_num){//맞으면
 							score *= 2;
+
+							// clcd
+							clcd_ingame_win(cur_num, answer, best_score, score)
+
 						}else{//틀리면
 							life -= 1;
+
+							// clcd
+							clcd_ingame_lose(cur_num, answer, best_score, score)
+
 						}
 					}else if(val == 2){//down
-						if(answer < cur_num){
+						if(answer < cur_num){// win
 							score *= 2;
+
+							// clcd
+							clcd_ingame_win(cur_num, answer, best_score, score)
+
 						}else{//틀리면
 							life -= 1;
+
+							// clcd
+							clcd_ingame_lose(cur_num, answer, best_score, score)
 						}
 
 					
 					
 
 					if(life == 0){
-					clcd_write_string("loser");
+
+					//clcd
+					//clcd upper line
+					clcd_entry_mode_set(1, 0);
+					clcd_set_DDRAM(0x00);
+					clcd_write_string("Game Over");
+					//clcd lower line
+					clcd_set_DDRAM(0x40);
+					clcd_write_string("Game Over");
 
 					printf("Do you want to one More? Y ");
 					char re = 0x00;
