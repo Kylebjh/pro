@@ -446,6 +446,34 @@ void clcd_ingame_stopkeep(int total_chips, int temp_chips) {
 
 }
 
+// clcd_gameover(int total_chips, int temp_chips) : clcd code for game over
+// upper line : Game Over :)
+// lower line : score : x
+void clcd_gameover(int total_chips) {
+
+    clcd_clear_display();
+    int i;
+//////////////////////////"                "
+    char upper_string[] = "Game Over :)";
+    char total_chips_string[4];
+
+    sprintf(total_chips_string,"%d",total_chips);
+
+    // upper line setting
+    clcd_entry_mode_set(1, 0);
+    clcd_set_DDRAM(0x00);
+    // upper line writing
+    clcd_write_string(upper_string);
+
+    // lower line setting
+    clcd_entry_mode_set(1, 0);
+    clcd_set_DDRAM(0x40);
+    // lower line writing
+    clcd_write_string("score : ");
+    clcd_write_string(total_chips_string);
+
+}
+
 
 // clcd_invaild_input() : clcd code for invaild input
 // upper line : invaild input !!

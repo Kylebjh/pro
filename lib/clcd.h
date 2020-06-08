@@ -32,6 +32,7 @@ void clcd_ingame_before_bet(int total_chips, int temp_chips);
 void clcd_ingame_win(int yourcard, int hiscard, int total_chips, int temp_chips);
 void clcd_ingame_lose(int yourcard, int hiscard, int total_chips, int temp_chips);
 void clcd_ingame_stopkeep(int total_chips, int temp_chips);
+void clcd_gameover(int total_chips);
 void clcd_invaild_input();
 
 

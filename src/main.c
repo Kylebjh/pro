@@ -172,16 +172,10 @@ int main(int argc, char* argv[]){
 					
 					
 
-					if(life == 0){
+					if(life == 0){ // game over
 
 					//clcd
-					//clcd upper line
-					clcd_entry_mode_set(1, 0);
-					clcd_set_DDRAM(0x00);
-					clcd_write_string("Game Over");
-					//clcd lower line
-					clcd_set_DDRAM(0x40);
-					clcd_write_string("Game Over");
+					clcd_gameover(best_score);
 
 					printf("Do you want to one More? Y ");
 					char re = 0x00;
