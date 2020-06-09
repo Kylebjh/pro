@@ -124,7 +124,7 @@ int main(int argc, char* argv[]){
 						if(cur_num != answer) break; //정답과 다른 숫자가 선택되면 탈출
 					}
 					
-					fnd_hexa_number(score);//현재 선택 카드 출력
+					fnd_hexa_number(life);//현재 선택 카드 출력
 					clcd_clcd_startgame(cur_num);
 
 				}
@@ -134,7 +134,7 @@ int main(int argc, char* argv[]){
 			case 3: //게임중
 				dot_write(answer);//답 출력
 				clcd_clcd_startgame(cur_num);
-				fnd_hexa_number(score);
+				fnd_hexa_number(life);
 
 				// clcd
 				clcd_ingame_before_bet(best_score, score)
