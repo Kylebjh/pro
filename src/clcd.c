@@ -118,53 +118,21 @@ void clcd_startgame(int total_chips, int temp_chips) {
 // clcd_ingame_before_bet(int yourcard, int hiscard, int chips) : clcd code before betting
 // upper line : up1, down 2 (A)
 // lower line : tot : X temp : X
-void clcd_ingame_before_bet(int total_chips, int temp_chips) {
-
-    clcd_clear_display();
-    int i;
-//////////////////////////"                "
-    char upper_string[] = "up1, down2 (A)";
-    char total_chips_string[4];
-    char temp_chips_string[4];
-
-    sprintf(total_chips_string,"%d",total_chips);
-    sprintf(temp_chips_string,"%d",temp_chips);
-
-    // upper line setting
-    clcd_entry_mode_set(1, 0);
-    clcd_set_DDRAM(0x00);
-    // upper line writing
-    clcd_write_string(upper_string);
-
-    // lower line setting
-    clcd_entry_mode_set(1, 0);
-    clcd_set_DDRAM(0x40);
-    // lower line writing
-    clcd_write_string("tot:");
-    clcd_write_string(total_chips_string);
-    clcd_write_string(" temp:");
-    clcd_write_string(temp_chips_string);
-
-}
-
-
-// clcd_ingame_win(int yourcard, int hiscard, int chips) : clcd code win
-// upper line : WIN! your : x his : x
-// lower line : tot: temp:
-void clcd_ingame_win(int yourcard, int hiscard, int total_chips, int temp_chips) {
+void clcd_ingame_before_bet(int yourcard, int hiscard, int total_chips, int temp_chips) {
 
     clcd_clear_display();
     int i;
 //////////////////////////"                "
     char ycard_string[1];
     char hcard_string[1];
+
     char total_chips_string[4];
     char temp_chips_string[4];
 
 
 switch(yourcard) {
 	case 1 :
-	sprintf(ycard_string,"%s", "1");
+	sprintf(ycard_string,"%s", "A");
 	break;
 	case 2 :
 	sprintf(ycard_string,"%s", "2");
@@ -199,9 +167,6 @@ switch(yourcard) {
 	case 12 :
 	sprintf(ycard_string,"%s", "K");
 	break;
-	case 13 :
-	sprintf(ycard_string,"%s", "A");
-	break;
 
 	default :
 	sprintf(ycard_string,"%s", "E");
@@ -210,7 +175,7 @@ switch(yourcard) {
 
 switch(hiscard) {
 	case 1 :
-	sprintf(hcard_string,"%s", "1");
+	sprintf(hcard_string,"%s", "A");
 	break;
 	case 2 :
 	sprintf(hcard_string,"%s", "2");
@@ -245,8 +210,133 @@ switch(hiscard) {
 	case 12 :
 	sprintf(hcard_string,"%s", "K");
 	break;
-	case 13 :
+
+	default :
+	sprintf(hcard_string,"%s", "E");
+
+}
+
+    // upper line setting
+    clcd_entry_mode_set(1, 0);
+
+    // upper line writing
+    clcd_write_string("!!!!");
+    clcd_set_DDRAM(0x00 + 4);
+    clcd_write_string(" you:");
+    clcd_set_DDRAM(0x00 + 4 + 5);
+    clcd_write_string(ycard_string);
+    clcd_set_DDRAM(0x00 + 4 + 5 + 1);
+    clcd_write_string(" his:");
+    clcd_set_DDRAM(0x00 + 4 + 5 + 1 + 5);
+    clcd_write_string("?");
+
+    sprintf(total_chips_string,"%d",total_chips);
+    sprintf(temp_chips_string,"%d",temp_chips);
+
+    // lower line setting
+    clcd_entry_mode_set(1, 0);
+    clcd_set_DDRAM(0x40);
+    // lower line writing
+    clcd_write_string("tot:");
+    clcd_write_string(total_chips_string);
+    clcd_write_string(" temp:");
+    clcd_write_string(temp_chips_string);
+}
+
+
+// clcd_ingame_win(int yourcard, int hiscard, int chips) : clcd code win
+// upper line : WIN! your : x his : x
+// lower line : tot: temp:
+void clcd_ingame_win(int yourcard, int hiscard, int total_chips, int temp_chips) {
+
+    clcd_clear_display();
+    int i;
+//////////////////////////"                "
+    char ycard_string[1];
+    char hcard_string[1];
+    char total_chips_string[4];
+    char temp_chips_string[4];
+
+
+switch(yourcard) {
+	case 1 :
+	sprintf(ycard_string,"%s", "A");
+	break;
+	case 2 :
+	sprintf(ycard_string,"%s", "2");
+	break;
+	case 3 :
+	sprintf(ycard_string,"%s", "3");
+	break;
+	case 4 :
+	sprintf(ycard_string,"%s", "4");
+	break;
+	case 5 :
+	sprintf(ycard_string,"%s", "5");
+	break;
+	case 6 :
+	sprintf(ycard_string,"%s", "6");
+	break;
+	case 7 :
+	sprintf(ycard_string,"%s", "7");
+	break;
+	case 8 :
+	sprintf(ycard_string,"%s", "8");
+	break;
+	case 9 :
+	sprintf(ycard_string,"%s", "9");
+	break;
+	case 10 :
+	sprintf(ycard_string,"%s", "J");
+	break;
+	case 11 :
+	sprintf(ycard_string,"%s", "Q");
+	break;
+	case 12 :
+	sprintf(ycard_string,"%s", "K");
+	break;
+
+	default :
+	sprintf(ycard_string,"%s", "E");
+
+}
+
+switch(hiscard) {
+	case 1 :
 	sprintf(hcard_string,"%s", "A");
+	break;
+	case 2 :
+	sprintf(hcard_string,"%s", "2");
+	break;
+	case 3 :
+	sprintf(hcard_string,"%s", "3");
+	break;
+	case 4 :
+	sprintf(hcard_string,"%s", "4");
+	break;
+	case 5 :
+	sprintf(hcard_string,"%s", "5");
+	break;
+	case 6 :
+	sprintf(hcard_string,"%s", "6");
+	break;
+	case 7 :
+	sprintf(hcard_string,"%s", "7");
+	break;
+	case 8 :
+	sprintf(hcard_string,"%s", "8");
+	break;
+	case 9 :
+	sprintf(hcard_string,"%s", "9");
+	break;
+	case 10 :
+	sprintf(hcard_string,"%s", "J");
+	break;
+	case 11 :
+	sprintf(hcard_string,"%s", "Q");
+	break;
+	case 12 :
+	sprintf(hcard_string,"%s", "K");
 	break;
 
 	default :
@@ -297,7 +387,7 @@ void clcd_ingame_lose(int yourcard, int hiscard, int total_chips, int temp_chips
 
 switch(yourcard) {
 	case 1 :
-	sprintf(ycard_string,"%s", "1");
+	sprintf(ycard_string,"%s", "A");
 	break;
 	case 2 :
 	sprintf(ycard_string,"%s", "2");
@@ -332,9 +422,6 @@ switch(yourcard) {
 	case 12 :
 	sprintf(ycard_string,"%s", "K");
 	break;
-	case 13 :
-	sprintf(ycard_string,"%s", "A");
-	break;
 
 	default :
 	sprintf(ycard_string,"%s", "E");
@@ -343,7 +430,7 @@ switch(yourcard) {
 
 switch(hiscard) {
 	case 1 :
-	sprintf(hcard_string,"%s", "1");
+	sprintf(hcard_string,"%s", "A");
 	break;
 	case 2 :
 	sprintf(hcard_string,"%s", "2");
@@ -377,9 +464,6 @@ switch(hiscard) {
 	break;
 	case 12 :
 	sprintf(hcard_string,"%s", "K");
-	break;
-	case 13 :
-	sprintf(hcard_string,"%s", "A");
 	break;
 
 	default :

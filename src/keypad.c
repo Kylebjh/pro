@@ -13,19 +13,21 @@ void init_keypad(short * address_out, short * address_in) {
 	keypad_in = address_in;
 }
 
+/*
 int keypad_read(int * key_value) {
 	int col, row, key_count = 0;
 	short key_temp;
 
 	for (col = 0; col < MAX_KEY_COL; col++) {
-		*keypad_out = /**/;
+		*keypad_out = 1;
 		key_temp = *keypad_in;
 
 		for (row = 0; row < MAX_KEY_ROW; row++) {
-			if ((key_temp >> row) & 1) == 1 ){
-			*key_value = /**/;
+			if (((key_temp >> row) & 1) == 1 ){
+			*key_value = 1;
 			key_count++;
 		}
 	}
 		return key_count;
 }
+*/
