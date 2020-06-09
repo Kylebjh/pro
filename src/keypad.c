@@ -2,12 +2,6 @@
 
 static short * keypad_out, *keypad_in;
 
-struct key_io{
-	short keypad_in;
-	short keypad_out;
-};//struct key_io = {1, 7};
-//key_io.keypad_in
-
 void init_keypad(short * address_out, short * address_in) {
 	keypad_out = address_out;
 	keypad_in = address_in;
@@ -18,12 +12,12 @@ int keypad_read(int * key_value) {
 	short key_temp;
 
 	for (col = 0; col < MAX_KEY_COL; col++) {
-		*keypad_out = /*dddd*/;
+		*keypad_out = (int)pow(2,3-col);//1000 >> i 도 맞는방법//
 		key_temp = *keypad_in;
 
 		for (row = 0; row < MAX_KEY_ROW; row++) {
 			if ((key_temp >> row) & 1) == 1 ){
-			*key_value = /**/;
+			*key_value = row * 4 + col + 1;
 			key_count++;
 		}
 	}
