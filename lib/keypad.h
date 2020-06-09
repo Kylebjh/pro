@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "led.h"
+#include <math.h>
 
 #define MAX_KEY_COL 4
 #define MAX_KEY_ROW 4
