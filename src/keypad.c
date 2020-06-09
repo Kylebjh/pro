@@ -17,7 +17,7 @@ int keypad_read(int * key_value) {
 
 		for (row = 0; row < MAX_KEY_ROW; row++) {
 			if ((key_temp >> row) & 1) == 1 ){
-			*key_value = row * 4 + col + 1;
+			*key_value = row * 4 + col;
 			key_count++;
 		}
 	}
