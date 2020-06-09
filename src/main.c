@@ -137,7 +137,7 @@ int main(int argc, char* argv[]){
 				fnd_hexa_number(life);
 
 				// clcd
-				clcd_ingame_before_bet(best_score, score)
+				clcd_ingame_before_bet(best_score, score);
 
 				int val = 0;
 				while(1)
@@ -155,7 +155,7 @@ int main(int argc, char* argv[]){
 							score *= 2;
 
 							// clcd
-							clcd_ingame_win(cur_num, answer, best_score, score)
+							clcd_ingame_win(cur_num, answer, best_score, score);
 							// led up
 							led_up_shift();
 
@@ -163,7 +163,7 @@ int main(int argc, char* argv[]){
 							life -= 1;
 
 							// clcd
-							clcd_ingame_lose(cur_num, answer, best_score, score)
+							clcd_ingame_lose(cur_num, answer, best_score, score);
 							// led down
 							led_down_shift();
 						}
@@ -176,7 +176,7 @@ int main(int argc, char* argv[]){
 							score *= 2;
 
 							// clcd
-							clcd_ingame_win(cur_num, answer, best_score, score)
+							clcd_ingame_win(cur_num, answer, best_score, score);
 							// led up
 							led_up_shift();
 
@@ -184,7 +184,7 @@ int main(int argc, char* argv[]){
 							life -= 1;
 
 							// clcd
-							clcd_ingame_lose(cur_num, answer, best_score, score)
+							clcd_ingame_lose(cur_num, answer, best_score, score);
 							// led down
 							led_down_shift();
 						}
