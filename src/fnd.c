@@ -39,7 +39,7 @@ void fnd_write(int hexadecimal, int fnd_num) {
 void fnd_hexa_number(unsigned long number) {
 	 int i;
 	 for(i=0; i<MAX_FND; i++){
-		   fnd_write( (short)(number & 0xF), i);
+		   fnd_write( (short)((number-1) & 0xF), i);
 		   number = number >> 4;
 	}
 }

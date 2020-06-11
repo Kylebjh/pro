@@ -54,10 +54,18 @@ truth_t logic() {
 	return TRUE;
 }
 
+static int item = 0;		// no item : 0, item : 1
+
 // 1~12 generation, A23456789JQK
 int gen_randNum(){
 	int random = 0;
-	random = (rand()%12) + 1 ;
+
+	if ( item == 0 ) { // no item
+		random = (rand()%12) + 1 ;
+	}
+	else if ( item == 1 ) { // item, prob 1/12 -> 1/8
+		random = (rand()%8) + 1 ;
+	}
 
 	return random;
 }
@@ -78,6 +86,7 @@ int main(int argc, char* argv[]){
 	int score = 1;		// temp score
 	int life = 3;		// life
 	int cur_num = 0;	// your card
+
 	
 	fd = open("/dev/mem", O_RDWR|O_SYNC);
 	if (fd == -1) {
@@ -144,7 +153,7 @@ num_sel:
 	int key_count;
 	
 	do {
-		printf("keep going(1) & stop(2) : "); 
+		printf("keep going(1) & stop(2) & buy item(3)(need 3 total score): "); 
 		key_count = keyboard_read(&val_keephold);
 		//key_count = keypad_read(&val_keephold);
 
@@ -152,9 +161,27 @@ num_sel:
 		else if ( val_keephold == 0 ) { flag_keephold = 0;}
 		else if ( val_keephold == 1 ) {
 			best_score += score;
-                        score = 0;
+                        score = 1;
                         flag_keephold = 0;
                 }
+		else if ( val_keephold == 2 ) {
+			if ( item == 1 ) { // already have item
+				printf("!!! you already have the item!!! \n");
+				flag_keephold = 1;
+			}
+			else if ( item == 0 ) {
+				if ( best_score >= 3 ) { // can buy item
+					item = 1;
+					best_score = best_score - 3;
+					printf("now you have item!!! \n");
+					flag_keephold = 1;
+				}
+				else { // cant buy item
+					printf("you don't have enough score\n");
+					flag_keephold = 1;
+				}
+			}
+		}
 		else {flag_keephold = 1;}       
 	}while( flag_keephold == 1 );
 
@@ -182,9 +209,7 @@ num_sel:
 			else if ( ( val_updown == 0 ) || ( val_updown == 1 )) { flag_updown = 0;}
 			else {flag_updown = 1;}
 
-		}while( flag_updown == 1 );
-
-		if(val_updown == 1){//up
+		if(val_updown == 0){//up
 
 			// led blink
 			led_blink_all();
@@ -195,10 +220,10 @@ num_sel:
 				// clcd
 				clcd_ingame_win(cur_num, answer, best_score, score);
 
-				usleep(100000);
-
 				// led up
 				led_up_shift();
+
+				usleep(300000);
 
 				goto num_sel;
 
@@ -208,16 +233,16 @@ num_sel:
 				// clcd
 				clcd_ingame_lose(cur_num, answer, best_score, score);
 
-				usleep(100000);
-
 				// led down
 				led_down_shift();
+
+				usleep(300000);
 
 				goto num_sel;
 
 			}
 
-		}else if(val_updown == 2){//down
+		}else if(val_updown == 1){//down
 
 			// led blink
 			led_blink_all();
@@ -228,10 +253,10 @@ num_sel:
 					// clcd
 					clcd_ingame_win(cur_num, answer, best_score, score);
 
-					usleep(100000);
-
 					// led up
 					led_up_shift();
+
+					usleep(300000);
 
 					goto num_sel;
 
@@ -241,15 +266,19 @@ num_sel:
 					// clcd
 					clcd_ingame_lose(cur_num, answer, best_score, score);
 
-					usleep(100000);
-
 					// led down
 					led_down_shift();
+
+					usleep(300000);
 
 					goto num_sel;
 
 				}
 		}
+
+		
+		}while( flag_updown == 0 );
+
 	} else { // game over
 
 		//clcd
