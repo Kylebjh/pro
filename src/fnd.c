@@ -3,10 +3,10 @@
 
 
 static unsigned short fnd_hexadecimal[16] = {
-	0x3F, // 0
 	0x06, // 1
 	0x5B, // 2
-	0x4F  // 3
+	0x4F, // 3
+	0x79  // E
 };
 
 static short * fnd[MAX_FND];
