@@ -65,6 +65,7 @@ int gen_randNum(){
 //함수선언
 int keyboard_read();
 int keypad_read();
+void init_keypad();
 //
 
 int main(int argc, char* argv[]){
@@ -148,12 +149,12 @@ num_sel:
 		//key_count = keypad_read(&val_keephold);
 
 		if (key_count > 1){ flag_keephold = 1;}
-		else if ( val_keephold == 1 ) { flag_keephold = 0;}
-		else if ( val_keephold == 2 ) {
+		else if ( val_keephold == 0 ) { flag_keephold = 0;}
+		else if ( val_keephold == 1 ) {
 			best_score += score;
-			score = 0;
-			flag_keephold = 0;
-		}
+                        score = 0;
+                        flag_keephold = 0;
+                }
 		else {flag_keephold = 1;}       
 	}while( flag_keephold == 1 );
 
@@ -178,7 +179,7 @@ num_sel:
 			//key_count = keypad_read(&val_updown);
 
 			if (key_count > 1){ flag_updown = 1;}
-			else if ( ( val_updown == 1 ) || ( val_updown == 2 )) { flag_updown = 0;}
+			else if ( ( val_updown == 0 ) || ( val_updown == 1 )) { flag_updown = 0;}
 			else {flag_updown = 1;}
 
 		}while( flag_updown == 1 );
