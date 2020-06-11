@@ -88,11 +88,14 @@ int main(int argc, char* argv[]){
 	}
 	clcd_cmd  = mapper(IEB_CLCD_CMD, PROT_WRITE);
 	clcd_data = mapper(IEB_CLCD_DATA, PROT_WRITE);
+	//keypad_out = mapper(IEB_KEY_W, PROT_WRITE);
+	//keypad_in = mapper(IEB_KEY_R, PROT_READ);
 
 	init_led(led);
 	init_dot(dot);
 	init_fnd(fnd);
 	init_clcd(clcd_cmd, clcd_data);
+	//init_keypad(keypad_out,keypad_in);
 
 int flag_main = 1;
 
@@ -121,8 +124,8 @@ num_sel:
 		}
 				
 		// fnd life
-		fnd_hexa_number(life);
-
+		fnd_hexa_number(life);		
+		
 		// clcd start game
 		clcd_ingame_before_bet(cur_num, answer, best_score, score);
 
@@ -130,23 +133,23 @@ num_sel:
 		dot_write(cur_num);
 
 // loop for game keep going
+	int val_keephold = 0; // val_keephold 변수가 keypad.c함수내의 key_value변수와 동일한 역할.
+	int flag_keephold =1;
+	int key_count;
+	
+	do {
+		printf("keep going(1) & stop(2) : "); 
+		key_count = keyboard_read(&val_keephold);
+		//key_count = keypad_read(&val_keephold);
 
-	int val_keephold = 0;
-	int flag_keephold = 1;
-
-		do {
-			printf("keep going(1) & stop(2) : "); //입력 받고
-			scanf("%d", &val_keephold);
-
-			if ( val_keephold == 1 ) { flag_keephold = 0;}
-			else if ( val_keephold == 2 ) {
-				best_score += score;
-				score = 0;
-				flag_keephold = 0;
-			}
-			else {flag_keephold = 1;}
-
-		}while( flag_keephold == 1 );
+		if ( val_keephold == 1 ) { flag_keephold = 0;}
+		else if ( val_keephold == 2 ) {
+			best_score += score;
+			score = 0;
+			flag_keephold = 0;
+		}
+		else {flag_keephold = 1;}       
+	}while( flag_keephold == 1 );
 
 		// clcd start game
 		clcd_ingame_before_bet(cur_num, answer, best_score, score);
@@ -161,10 +164,12 @@ num_sel:
 
 	int val_updown = 0;
 	int flag_updown = 1;
+	//key_count는 이미 위에서 선언이 되어있다.
 
 		do {
 			printf("!!!! choose up(1) & down(2) : "); //입력 받고
-			scanf("%d", &val_updown);
+			key_count = keyboard_read(&val_updown);
+			//key_count = keypad_read(&val_updown);
 
 			if ( ( val_updown == 1 ) || ( val_updown == 2 )) { flag_updown = 0;}
 			else {flag_updown = 1;}
@@ -256,5 +261,5 @@ num_sel:
 	close(fd);
 	return 0;
 }
-				
+
 		
