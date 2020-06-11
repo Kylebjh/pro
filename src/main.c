@@ -142,7 +142,8 @@ num_sel:
 		key_count = keyboard_read(&val_keephold);
 		//key_count = keypad_read(&val_keephold);
 
-		if ( val_keephold == 1 ) { flag_keephold = 0;}
+		if (key_count > 1){ flag_keephold = 1;}
+		else if ( val_keephold == 1 ) { flag_keephold = 0;}
 		else if ( val_keephold == 2 ) {
 			best_score += score;
 			score = 0;
@@ -164,14 +165,15 @@ num_sel:
 
 	int val_updown = 0;
 	int flag_updown = 1;
-	//key_count는 이미 위에서 선언이 되어있다.
+	key_count = 0; // key_count 초기화
 
 		do {
 			printf("!!!! choose up(1) & down(2) : "); //입력 받고
 			key_count = keyboard_read(&val_updown);
 			//key_count = keypad_read(&val_updown);
 
-			if ( ( val_updown == 1 ) || ( val_updown == 2 )) { flag_updown = 0;}
+			if (key_count > 1){ flag_updown = 1;}
+			else if ( ( val_updown == 1 ) || ( val_updown == 2 )) { flag_updown = 0;}
 			else {flag_updown = 1;}
 
 		}while( flag_updown == 1 );
