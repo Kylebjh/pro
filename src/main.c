@@ -62,6 +62,11 @@ int gen_randNum(){
 	return random;
 }
 
+//함수선언
+int keyboard_read();
+int keypad_read();
+//
+
 int main(int argc, char* argv[]){
 	int i;
 	short * led, * dot[MAX_DOT], * fnd[MAX_FND];
